@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Aphrodite 🤍🤍🤍</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Quicksand:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #f0c4d6;
+            min-height: 100vh;
+            font-family: 'Quicksand', sans-serif;
+            color: #4a4a4a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        .card {
+            background: #4e1510;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            border: 1px solid #eae5de;
+            max-width: 450px;
+            width: 100%;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 3rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        p.subtitle {
+            font-size: 1rem;
+            margin-bottom: 25px;
+            color: #8c837b;
+            line-height: 1.6;
+        }
+
+        /* === BINGKAI FOTO POLAROID === */
+        .polaroid {
+            background: #ffffff;
+            padding: 10px 10px 20px 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            max-width: 220px;
+            margin: 0 auto 5px auto;
+            transform: rotate(-4deg);
+            border-radius: 4px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            cursor: pointer; /* Kursor berubah jadi tangan pas diarahkan ke foto */
+        }
+        .polaroid:hover {
+            transform: rotate(2deg) scale(1.05);
+        }
+        .polaroid img {
+            width: 100%;
+            height: auto;
+            border-radius: 2px;
+            display: block;
+            transition: opacity 0.3s ease;
+        }
+        .polaroid-caption {
+            font-family: 'Caveat', cursive;
+            color: #4e1510;
+            font-size: 1.4rem;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .click-hint {
+            font-size: 0.85rem;
+            color: #e39bb4;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .message-box {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px 20px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            border: 1px dashed #d1c8c0;
+        }
+        #message-text {
+            font-family: 'Special Elite', cursive;
+            font-size: 1.15rem;
+            color: #5c534b;
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+            line-height: 1.5;
+        }
+        button {
+            background-color: #000000;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            font-size: 1rem;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+        button:hover {
+            background-color: #6a5e55;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 94, 85, 0.2);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* === EFEK LOVE TERBANG === */
+        .floating-heart {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: floatUp 2s ease-out forwards;
+            pointer-events: none; /* Biar lovenya nggak bisa diklik */
+            z-index: 50;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-120px) scale(1.5) rotate(15deg); opacity: 0; }
+        }
+
+        /* === FOOTER & POP-UP RAHASIA === */
+        .footer {
+            margin-top: 35px;
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            color: #a39b94;
+            cursor: pointer; /* Biar Manda sadar ini bisa diklik */
+            transition: color 0.3s ease;
+        }
+        .footer:hover {
+            color: #f0c4d6;
+        }
+
+        .modal {
+            display: none; 
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: #fffdf5;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 350px;
+            text-align: center;
+            color: #4e1510;
+            position: relative;
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px dashed #e39bb4;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px; right: 15px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #c9718d;
+        }
+        .modal-content h2 {
+            font-family: 'Caveat', cursive;
+            font-size: 2.5rem;
+            color: #c9718d;
+            margin-bottom: 10px;
+        }
+        .modal-content p {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #5c534b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>hi, my aphrodite</h1>
+        <p class="subtitle">hadiah kecil buat kamu mandaaaa, pencet aja sesuka kamu hehehe</p>
+        
+        <!-- BAGIAN FOTO POLAROID (BISA DIKLIK) -->
+        <div class="polaroid" onclick="gantiFoto()">
+            <img id="fotoPolaroid" src="foto-manda1.jpg" alt="Manda & Irsyad">
+            <div class="polaroid-caption">my favorite view 🤍</div>
+        </div>
+        <p class="click-hint">*psstt, coba klik fotonya deh!</p>
+
+        <div class="message-box">
+            <span id="message-text">"bebas kapanpun kamu mau..."</span>
+        </div>
+
+        <!-- Tombol dipasangi event 'event' biar bisa ngeluarin love di titik kursor -->
+        <button onclick="generateMessage(event)">pencet akuu 🤍</button>
+
+        <!-- FOOTER RAHASIA -->
+        <div class="footer" onclick="showHiddenMessage()">
+            19 days left...
+        </div>
+    </div>
+
+    <!-- POP-UP PESAN RAHASIA -->
+    <div id="hiddenModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeHiddenMessage()">&times;</span>
+            <h2>Surprise! 💌</h2>
+            <p>Cieee 19 hari lagii, sabar yaa tunggu dikit lagi (ada kejutan kecil wkwk). Can't wait to spend more time with you, Manda. I love you! ❤️</p>
+        </div>
+    </div>
+
+    <!-- Tag Audio -->
+    <audio id="bgMusic" src="beautiful.mp3" loop></audio>
+
+    <script>
+        // === SCRIPT GANTI FOTO ===
+        // Siapkan 3 foto dan namakan foto-manda1.jpg, foto-manda2.jpg, foto-manda3.jpg di folder yang sama
+        const kumpulanFoto = ["foto-manda1.jpg", "foto-manda2.jpg", "foto-manda3.jpg"]; 
+        let fotoIndex = 0;
+
+        function gantiFoto() {
+            fotoIndex = (fotoIndex + 1) % kumpulanFoto.length;
+            const imgElement = document.getElementById("fotoPolaroid");
+            
+            // Bikin efek nge-blur/hilang dikit sebelum ganti foto
+            imgElement.style.opacity = 0; 
+            setTimeout(() => {
+                imgElement.src = kumpulanFoto[fotoIndex];
+                imgElement.style.opacity = 1; 
+            }, 300);
+        }
+
+        // === SCRIPT QUOTES & AUDIO ===
+        const messages = [
+            "✨ kamu cantik banget siii!!!!!!",
+            "🫂 jangan ngambek mulu plis kalo dibales WKWKWKWK",
+            "💖 kamu cantik tiap hari tau",
+            "☕ kalo ada apa-apa cerita ke aku yawww",
+            "🌟 makasihh manda udah mau ketemu teruss sama akuuww",
+            "🥰 CUMA KAMU!",
+            "🎟️ a golden ticket to demand a forehead kiss right now.",
+            "🔒 a guarantee that I’m always in your corner.",
+            "🌸 you look stunning today (and every day!!!!!!!!!).",
+            "🌷 nih bunga..."
+        ];
+
+        const music = document.getElementById("bgMusic");
+        let isPlaying = false;
+
+        function generateMessage(e) {
+            // Mainkan musik
+            if (!isPlaying) {
+                music.play();
+                isPlaying = true;
+            }
+
+            // Ganti teks
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            const textElement = document.getElementById("message-text");
+            
+            textElement.style.opacity = 0;
+            textElement.style.transform = "scale(0.98)";
+            
+            setTimeout(() => {
+                textElement.innerText = messages[randomIndex];
+                textElement.style.opacity = 1;
+                textElement.style.transform = "scale(1)";
+            }, 400); 
+
+            // Panggil efek love terbang
+            createHeart(e);
+        }
+
+        // === SCRIPT LOVE TERBANG ===
+        function createHeart(e) {
+            const heart = document.createElement("div");
+            heart.classList.add("floating-heart");
+            heart.innerText = "💖";
+            
+            // Biar love-nya muncul di dekat kursor pas Manda nge-klik
+            heart.style.left = (e.clientX - 15) + "px";
+            heart.style.top = (e.clientY - 30) + "px";
+            
+            document.body.appendChild(heart);
+            
+            // Hapus love setelah 2 detik biar webnya ga berat
+            setTimeout(() => { heart.remove(); }, 800); 
+        }
+
+        // === SCRIPT POP-UP RAHASIA ===
+        const modal = document.getElementById("hiddenModal");
+
+        function showHiddenMessage() {
+            modal.style.display = "flex";
+        }
+
+        function closeHiddenMessage() {
+            modal.style.display = "none";
+        }
+
+        // Kalau iseng ngeklik di luar kotak putih, pop-upnya juga nutup
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
